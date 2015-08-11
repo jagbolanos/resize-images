@@ -1,0 +1,8 @@
+.DS_Store
+ldpi/*
+hdpi/*
+mdpi/*
+xhdpi/*
+xxhdpi/*
+xxxhdpi/*
+transition/*
