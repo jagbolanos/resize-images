@@ -32,9 +32,11 @@ Dir.foreach(source_directory) do |item|
     next if item == ".DS_Store"
     
     puts item
+    original = item.dup
+    item.slice! "@3x"
     
     target_directories.each do |target|
-        image = Magick::Image.read(source_directory + "/" + item).first
+        image = Magick::Image.read(source_directory + "/" + original).first
         puts target
         puts target["name"]
         target_file = target["name"] + "/" + item.gsub(".", target["suffix"] + ".")
