@@ -8,22 +8,13 @@ require 'rmagick'
 
 target_directories = []
 
-dpi = { "name" => ARGV.empty? ? "drawable-xxxhdpi" : ARGV[0] + "/drawable-xxxhdpi", "scale" => 1.0 }
+dpi = { "name" => ARGV.empty? ? "3x" : ARGV[0] + "/3x", "scale" => 1.0, "suffix" => "@3x" }
 target_directories.push(dpi)
 
-dpi = { "name" => ARGV.empty? ? "drawable-xxhdpi" : ARGV[0] + "/drawable-xxhdpi", "scale" => 0.75 }
+dpi = { "name" => ARGV.empty? ? "2x" : ARGV[0] + "/2x", "scale" => 0.6666, "suffix" => "@2x" }
 target_directories.push(dpi)
 
-dpi = { "name" => ARGV.empty? ? "drawable-xhdpi" : ARGV[0] + "/drawable-xhdpi", "scale" => 0.5 }
-target_directories.push(dpi)
-
-dpi = { "name" => ARGV.empty? ? "drawable-hdpi" : ARGV[0] + "/drawable-hdpi", "scale" => 0.375 }
-target_directories.push(dpi)
-
-dpi = { "name" => ARGV.empty? ? "drawable-mdpi" : ARGV[0] + "/drawable-mdpi", "scale" => 0.25 }
-target_directories.push(dpi)
-
-dpi = { "name" => ARGV.empty? ? "drawable-ldpi" : ARGV[0] + "/drawable-ldpi", "scale" => 0.1875 }
+dpi = { "name" => ARGV.empty? ? "1x" : ARGV[0] + "/1x", "scale" => 0.3333, "suffix" => "" }
 target_directories.push(dpi)
 
 target_directories.each do |target|
@@ -46,7 +37,7 @@ Dir.foreach(source_directory) do |item|
         image = Magick::Image.read(source_directory + "/" + item).first
         puts target
         puts target["name"]
-        target_file = target["name"] + "/" + item
+        target_file = target["name"] + "/" + item.gsub(".", target["suffix"] + ".")
         target = image.scale(target["scale"])
         
         
